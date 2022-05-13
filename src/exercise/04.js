@@ -10,25 +10,28 @@ export function useLocalStorage(key, initialValue) {
     ✅ in this hook, use the useState hook. For the initial value for state:
     use the value saved in localStorage OR the initialValue from the function parameters 
   */
-
+  const [state, setState] = useState(localStorage.getItem(key) || initialValue)
   /* 
    ✅ write a useEffect hook 
    in the useEffect, when state is updated, save the state to localStorage
    don't forget the dependencies array!
   */
-  useEffect(() => {});
+  useEffect(() => {
+    localStorage.setItem(key, state)
+  });
 
   /* 
    ✅ return the same interface as useState:
    an array with state and a setState function
   */
   // 👀 return [state, setState]
+  return [state, setState]
 }
 
 function Form() {
   // ✅ after implementing the useLocalStorage hook, replace useState with useLocalStorage
   // don't forget to pass in both arguments (a key and an initialValue)
-  const [name, setName] = useState("");
+  const [name, setName] = useLocalStorage('name', '');
   console.log(name);
 
   return (
